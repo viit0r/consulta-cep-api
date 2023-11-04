@@ -1,7 +1,10 @@
 package com.viit0r.consultacepapi.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viit0r.consultacepapi.dto.CepResponseDTO;
+import com.viit0r.consultacepapi.exception.CEPNotFoundException;
+import com.viit0r.consultacepapi.exception.InvalidCEPException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,10 +21,10 @@ public class CepService {
         this.objectMapper = objectMapper;
     }
 
-    public ResponseEntity<CepResponseDTO> getAddressInfo(String cep) throws Exception {
+    public ResponseEntity<CepResponseDTO> getAddressInfo(String cep) throws JsonProcessingException {
 
         if(!isValid(cep)) {
-            throw new Exception("CEP inválido. Verifique e tente novamente!");
+            throw new InvalidCEPException("CEP inválido. Verifique e tente novamente!");
         }
 
         String response = webClient.get()
@@ -32,7 +35,7 @@ public class CepService {
             .block();
 
         if (response != null && response.contains(ERRO_CEP_NAO_ENCONTRADO)) {
-            throw new Exception("CEP não existente na nossa base de dados. Por favor, verifique e tente novamente!");
+            throw new CEPNotFoundException("CEP não existente na base de dados. Por favor, verifique e tente novamente!");
         }
 
         return ResponseEntity.ok(objectMapper.readValue(response, CepResponseDTO.class));
