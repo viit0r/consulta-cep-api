@@ -8,6 +8,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class ExceptionResponse {
-    private String mensagem;
-    private Date time;
+    private String message;
+    private Date timestamp;
 }
