@@ -1,6 +1,5 @@
 package com.viit0r.consultacepapi.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.viit0r.consultacepapi.dto.CepResponseDTO;
 import com.viit0r.consultacepapi.exception.CEPNotFoundException;
 import com.viit0r.consultacepapi.exception.InvalidCEPException;
@@ -19,13 +18,13 @@ class CepServiceTest {
     private CepService cepService;
 
     @Test
-    void whenGetAddressInfo_ThenReturnSuccess() throws JsonProcessingException {
+    void whenGetAddressInfo_ThenReturnSuccess() {
 
         ResponseEntity<CepResponseDTO> response = cepService.getAddressInfo("01001000");
 
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("01001-000", response.getBody().getCep());
+        assertEquals("01001-000", response.getBody().cep());
     }
 
     @Test

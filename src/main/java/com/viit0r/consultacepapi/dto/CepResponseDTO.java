@@ -1,23 +1,3 @@
 package com.viit0r.consultacepapi.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serializable;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class CepResponseDTO implements Serializable {
-
-    private String cep;
-    private String logradouro;
-    private String complemento;
-    private String bairro;
-    private String localidade;
-    private String uf;
-    private String ddd;
-}
+public record CepResponseDTO(String cep, String logradouro, String complemento, String bairro, String localidade, String uf, String ddd){}
